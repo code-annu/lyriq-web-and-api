@@ -1,0 +1,62 @@
+<aside class="w-64 bg-white border-r shadow-md flex flex-col p-6">
+  <div class="mb-10 text-blue-700 text-2xl font-bold">Lyriq</div>
+
+  {% with current_url_name=request.resolver_match.url_name %}
+  <nav class="flex-1">
+    <h2 class="text-sm font-semibold text-gray-500 mb-5">MENU</h2>
+    <ul class="space-y-3 mb-8">
+      <li>
+        <a href="{% url 'music:home' %}" class="flex items-center {% if current_url_name == 'home' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %} font-medium">
+          <i class="fa-solid fa-house mr-3"></i>Home
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'music:search' %}" class="flex items-center {% if current_url_name == 'search' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          <i class="fa-solid fa-magnifying-glass mr-3"></i>Search
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'music:likes' %}" class="flex items-center {% if current_url_name == 'likes' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          <i class="fa-solid fa-heart mr-3"></i>Likes
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'music:playlists' %}" class="flex items-center {% if current_url_name == 'playlists' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          <i class="fa-solid fa-music mr-3"></i>Playlists
+        </a>
+      </li>
+    </ul>
+
+    {% if user.is_authenticated %}
+    <div>
+      <h2 class="text-sm font-semibold text-gray-500 mb-5 mt-20">GENERAL</h2>
+      <ul class="space-y-3">
+        <li>
+          <a href="{% url 'account:profile' %}" class="flex items-center {% if current_url_name == 'profile' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+            <i class="fa-solid fa-user mr-3"></i>Profile
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'account:logout' %}" class="flex items-center text-gray-700 hover:text-blue-700">
+            <i class="fa-solid fa-arrow-right-from-bracket mr-3"></i>Log out
+          </a>
+        </li>
+      </ul>
+    </div>
+    {% else %}
+    <ul class="space-y-3">
+      <li>
+        <a href="{% url 'account:login' %}" class="flex items-center {% if current_url_name == 'login' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          Login
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'account:signup' %}" class="flex items-center {% if current_url_name == 'signup' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          Join Lyriq
+        </a>
+      </li>
+    </ul>
+    {% endif %}
+  </nav>
+  {% endwith %}
+</aside>

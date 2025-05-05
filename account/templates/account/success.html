@@ -1,0 +1,15 @@
+{% extends "core/layout.html" %}
+
+{% block title %}Success{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+ <div>
+    <div class="bg-gray-100 flex items-center justify-center h-screen">
+        <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Success</h2>
+            <p class="text-green-500 text-lg text-center">Your action was successful!</p>
+            {% comment %} <a href="{% url 'account:login' %}" class="mt-4 inline-block text-blue-500 hover:underline">Go to Login</a> {% endcomment %}
+        </div>
+    </div>
+ </div>
+{% endblock %}

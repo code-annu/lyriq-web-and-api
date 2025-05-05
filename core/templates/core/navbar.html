@@ -1,0 +1,41 @@
+<nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+
+        <!-- Left side: Navigation links -->
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Songs</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Artists</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Albums</a>
+        </div>
+
+        {% if user.is_authenticated %}
+
+        <!-- Right side: Icons if user authenticated-->
+        <div class="flex items-center space-x-6">
+          <a href="{% url 'account:profile' %}" class="text-gray-700 hover:text-blue-600">
+            <i class="fa-solid fa-plus"></i>
+          </a>
+          <a href="{% url 'account:profile' %}" class="text-gray-700 hover:text-blue-600">
+            <i class="fa-solid fa-user"></i>
+          </a>
+        </div>
+
+
+        {% else %}
+        <!-- Right side: Icons if user not authenticated-->
+        <div class="flex items-center space-x-4">
+          <a href="{% url 'account:login' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+          <a href="{% url 'account:signup' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Join</a>
+        </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+</nav>
+
+
+
+
+  

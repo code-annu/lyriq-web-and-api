@@ -1,0 +1,28 @@
+{% extends "core/layout.html" %}
+
+{% block title %}
+    {{ user.username }}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">User Profile</h2>
+        <div class="space-y-2 text-gray-700 dark:text-gray-300">
+            <p><span class="font-semibold">Username:</span> {{ user.username }}</p>
+            <p><span class="font-semibold">Email:</span> {{ user.email }}</p>
+        </div>
+        <div class="mt-6 space-y-2">
+            
+        {% if token %}
+        <p class="text-gray-700 dark:text-gray-300"><span class="font-semibold">Token:</span> {{ token }}</p>
+        {% else %}
+        <a href="{% url 'account:generate_token' %}" class="block text-center w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300">
+            Generate Token
+        </a>
+        {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

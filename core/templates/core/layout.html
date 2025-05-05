@@ -1,0 +1,26 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Lyriq {% endblock %}
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/6420a03c64.js" crossorigin="anonymous"></script>
+    {% tailwind_css %}
+</head>
+<body class="flex min-h-screen bg-gray-100">
+    
+    {% block sidebar %}
+    {% include "core/sidebar.html" %}
+    {% endblock %}
+
+    <!-- Main Content -->
+  <main class="flex-1 p-10">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>
