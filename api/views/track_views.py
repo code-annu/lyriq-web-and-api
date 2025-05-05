@@ -1,7 +1,42 @@
-from rest_framework import generics, permissions
-from api.serializers.track_serializers import TrackSerializer,TrackListCreateSerializer
+from rest_framework import generics, permissions, filters
+from api.serializers.track_serializers import *
+from api.serializers.query_param_serializers import *
+from rest_framework import status
+from rest_framework.response import Response
 from music.models import Track
+import random
 
+
+class TrackDetailView(generics.RetrieveAPIView):
+    queryset = Track.objects.all()
+    serializer_class = TrackDetailSerializer
+
+
+class TrackShuffleView(generics.ListAPIView):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
+
+    def list(self, request, *args, **kwargs):
+        querylist = list(self.get_queryset())
+        random.shuffle(querylist)
+        sizeSerializer = SizeSerializer(data = request.query_params)
+        if sizeSerializer.is_valid():
+            size = sizeSerializer.validated_data.get('size')
+            shuffledTrackList = querylist[:size]
+            serializedData = self.get_serializer(shuffledTrackList,many=True)
+            return Response(data=serializedData.data,status=status.HTTP_200_OK)
+        else:
+            return Response(data=sizeSerializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+class TrackSearchView(generics.ListAPIView):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+
+
+# These classes are only for admin uses
 
 class TrackListCreateView(generics.ListCreateAPIView):
     """
@@ -12,7 +47,7 @@ class TrackListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     
-class TrackDetailView(generics.RetrieveUpdateDestroyAPIView):
+class TrackRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
     API view to retrieve, update or delete a track.
     """
