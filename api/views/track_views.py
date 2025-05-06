@@ -10,11 +10,13 @@ import random
 class TrackDetailView(generics.RetrieveAPIView):
     queryset = Track.objects.all()
     serializer_class = TrackDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TrackShuffleView(generics.ListAPIView):
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
         querylist = list(self.get_queryset())
@@ -34,6 +36,7 @@ class TrackSearchView(generics.ListAPIView):
     serializer_class = TrackSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
+    permission_classes = [permissions.IsAuthenticated]
 
 
 # These classes are only for admin uses

@@ -10,6 +10,7 @@ import random
 class AlbumDetailView(generics.RetrieveAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumDetailSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class AlbumSearchView(generics.ListAPIView):
@@ -17,11 +18,13 @@ class AlbumSearchView(generics.ListAPIView):
     serializer_class = AlbumSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
+    permission_classes = [IsAuthenticated]
     
     
 class AlbumShuffleView(generics.ListAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+    permission_classes = [IsAuthenticated]
     
     def list(self, request, *args, **kwargs):
         querylist = list(self.get_queryset())

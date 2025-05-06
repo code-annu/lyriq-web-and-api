@@ -11,12 +11,14 @@ from rest_framework.response import Response
 class ArtistDetailView(generics.RetrieveAPIView):
     queryset = Artist.objects.all()
     serializer_class = ArtistDetailSerializer
+    permission_classes = [IsAuthenticated]
     
     
 
 class ArtistAlbumsView(generics.RetrieveAPIView):
     queryset = Artist.objects.all()
     serializer_class = ArtistAlbumsSerializer
+    permission_classes = [IsAuthenticated]
     
 
 class ArtistSearchView(generics.ListAPIView):
@@ -24,10 +26,12 @@ class ArtistSearchView(generics.ListAPIView):
     serializer_class = ArtistSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+    permission_classes = [IsAuthenticated]
     
     
 class ArtistShuffleView(generics.ListAPIView):
     serializer_class = ArtistSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Artist.objects.all()
