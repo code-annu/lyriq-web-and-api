@@ -1,6 +1,7 @@
 services:
   - type: web
     name: lyriq
+    plan: free
     env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn lyriq.wsgi:application"
