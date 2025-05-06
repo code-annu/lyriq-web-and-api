@@ -20,4 +20,12 @@ urlpatterns = [
     path('tracks/',TrackShuffleView.as_view(),name='tracks-shuffle'),
     path('search/tracks/',TrackSearchView.as_view(),name='search-tracks'),
     
+    # Only admin can access these urls
+    path('create_list/album/',AlbumListCreateView.as_view(),name='create-list-album'),
+    path('operation/album/',AlbumRetrieveUpdateDestroyView.as_view(),name='operation-album'),
+    path('create_list/track/',TrackListCreateView.as_view(),name='create-list-album'),
+    path('operation/track/',TrackRetrieveUpdateDestroyView.as_view(),name='operation-album')
+
+    
+    
 ]

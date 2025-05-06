@@ -1,4 +1,5 @@
 {% extends "core/layout.html" %}
+{% load music_extras %}
 
 {% block title %}{{ object.title }} - Lyriq{% endblock %}
 
@@ -45,7 +46,7 @@
                     {{ artist.name }}{% if not forloop.last %}, {% endif %}
                   {% endfor %}
                 </p>
-                <p class="text-sm text-gray-500 mt-2">Duration: {{ track.duration }} min</p>
+                <p class="text-sm text-gray-500 mt-2">Duration: {{ track.duration | duration_format }}</p>
               </div>
             </a>
           {% endfor %}
