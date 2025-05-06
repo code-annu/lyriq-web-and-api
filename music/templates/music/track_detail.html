@@ -1,0 +1,79 @@
+{% extends "core/layout.html" %}
+{% load music_extras %}
+
+{% block title %}{{ object.title }} - Lyriq{% endblock %}
+
+{% block content %}
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <!-- Track Information -->
+    <div class="flex flex-col md:flex-row items-center md:items-start">
+      <img src="{{ object.cover_url }}" alt="{{ object.title }} cover" class="w-full md:w-64 h-64 object-cover rounded-md mb-4 md:mb-0 md:mr-6">
+      <div class="flex-1">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ object.title }}</h1>
+        <p class="text-lg text-gray-600 mb-2">
+          <span class="font-semibold">Artists:</span>
+          {% for artist in object.artists.all %}
+            {{ artist.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <p class="text-gray-500 mb-2">
+          <span class="font-semibold">Album:</span>
+          <a href="{% url 'music:album_detail' object.album.id %}" class="text-blue-600 hover:underline">
+            {{ object.album.title }}
+          </a>
+        </p>
+        <p class="text-gray-500 mb-2"><span class="font-semibold">Duration:</span> {{ object.duration | duration_format }}</p>
+        <p class="text-gray-500 mb-2"><span class="font-semibold">Released:</span> {{ object.release_date }}</p>
+        <p class="text-gray-500 mb-2"><span class="font-semibold">Likes:</span> {{ object.likes_count }}</p>
+      </div>
+    </div>
+
+    <!-- Artists Details Section -->
+    <div class="mt-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Artists</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {% for artist in object.artists.all %}
+          <div class="flex items-center bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            <img src="{{ artist.img_url }}" alt="{{ artist.name }} photo" class="w-20 h-20 object-cover rounded-full mr-4">
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">{{ artist.name }}</h3>
+              <p class="text-gray-600">Gender: {{ artist.gender }}</p>
+              <p class="text-gray-500 text-sm">DOB: {{ artist.dob }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Lyrics Section -->
+    {% if object.lyrics %}
+      <div class="mt-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-2">Lyrics</h2>
+        <pre class="whitespace-pre-wrap text-gray-700 bg-gray-100 p-4 rounded-md">{{ object.lyrics }}</pre>
+      </div>
+    {% endif %}
+
+    <!-- Other Tracks from the Same Album -->
+    {% if album_tracks %}
+      <div class="mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Other Tracks from "{{ object.album.title }}"</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {% for track in album_tracks %}
+            <a href="{% url 'music:track_detail' track.id %}" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <img src="{{ track.cover_url }}" alt="{{ track.title }} cover" class="w-full h-48 object-cover">
+              <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-800">{{ track.title }}</h3>
+                <p class="text-sm text-gray-600">
+                  {% for artist in track.artists.all %}
+                    {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </p>
+                <p class="text-sm text-gray-500 mt-2">Duration: {{ track.duration }} min</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -16,13 +16,8 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'music:likes' %}" class="flex items-center {% if current_url_name == 'likes' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
-          <i class="fa-solid fa-heart mr-3"></i>Likes
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'music:playlists' %}" class="flex items-center {% if current_url_name == 'playlists' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
-          <i class="fa-solid fa-music mr-3"></i>Playlists
+        <a href="{% url 'music:songs' %}" class="flex items-center {% if current_url_name == 'likes' %}text-blue-700{% else %}text-gray-700 hover:text-blue-700{% endif %}">
+          <i class="fa-solid fa-music mr-3"></i>Songs
         </a>
       </li>
     </ul>
