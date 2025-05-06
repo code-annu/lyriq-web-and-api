@@ -1,5 +1,5 @@
 from rest_framework import generics,filters,status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.response import Response
 from api.serializers.album_serializers import *
 from api.serializers.query_param_serializers import *
@@ -41,12 +41,12 @@ class AlbumSearchView(generics.ListAPIView):
 class AlbumListCreateView(generics.ListCreateAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
 
 
 class AlbumRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumListCreateSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
 
     

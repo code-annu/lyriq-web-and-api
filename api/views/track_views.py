@@ -44,7 +44,7 @@ class TrackListCreateView(generics.ListCreateAPIView):
     """
     queryset = Track.objects.all()
     serializer_class = TrackListCreateSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
 
     
 class TrackRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -53,6 +53,6 @@ class TrackRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
 
    
