@@ -4,4 +4,4 @@ services:
     plan: free
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn lyriq.wsgi:application"
+    startCommand: "gunicorn lyriq.wsgi:application --bind 0.0.0.0:8002"
