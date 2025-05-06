@@ -7,12 +7,18 @@ from music.models import Album
 import random
 
 
-
 class AlbumDetailView(generics.RetrieveAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumDetailSerializer
 
 
+class AlbumSearchView(generics.ListAPIView):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+    
+    
 class AlbumShuffleView(generics.ListAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
@@ -28,13 +34,6 @@ class AlbumShuffleView(generics.ListAPIView):
             return Response(data=serializedData.data,status=status.HTTP_200_OK)
         else:
             return Response(data=sizeSerializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-
-class AlbumSearchView(generics.ListAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AlbumSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title']
     
 
 # This is only for Admin use

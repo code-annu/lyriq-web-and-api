@@ -26,7 +26,6 @@ class ArtistSearchView(generics.ListAPIView):
     search_fields = ['name']
     
     
-
 class ArtistShuffleView(generics.ListAPIView):
     serializer_class = ArtistSerializer
 
@@ -48,7 +47,12 @@ class ArtistShuffleView(generics.ListAPIView):
                 status=status.HTTP_200_OK
             )
         else:
-            return Response(data=sizeSerializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset,many=True)
+            return Response(
+                data=serializer.data,
+                status=status.HTTP_200_OK
+            )
     
 
 

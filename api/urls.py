@@ -11,6 +11,7 @@ urlpatterns = [
     # path('track/<str:pk>/', TrackDetailView.as_view(), name='track-detail'),
     # path('artists/shuffle/',ArtistShuffleView.as_view(),name='artist-shuffle'),
     path('artists/<str:pk>/', ArtistDetailView.as_view(), name='artist-detail'),
+    path('artists/',ArtistShuffleView.as_view(),name='artist-shuffle'),
     path('artists/<str:pk>/albums',ArtistAlbumsView.as_view(),name='artist-albums'),
     path('search/artists/',ArtistSearchView.as_view(),name= 'search-artists'),
     path('albums/<str:pk>/',AlbumDetailView.as_view(),name='album-detail'),
